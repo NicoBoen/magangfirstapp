@@ -16,12 +16,14 @@ class ViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var codethreeTextfield: UITextField!
     @IBOutlet weak var ScrollView: UIScrollView!
     @IBOutlet weak var addbookTextfield: UITextField!
+    var isKeyboardShow = false
+    var isKeyboardHide = false
     @IBAction func plusButton(_ sender: Any) {
     }
     @IBAction func cancelButton(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
-    
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +32,10 @@ class ViewController: UIViewController, UITextFieldDelegate {
         self.codeoneTextfield.delegate = self
         self.codetwoTextfield.delegate = self
         self.codethreeTextfield.delegate = self
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
 
     override func didReceiveMemoryWarning() {
@@ -60,16 +66,37 @@ class ViewController: UIViewController, UITextFieldDelegate {
     @IBAction func backtofront(_ sender: Any) {
             //self.dismiss(animated: true, completion: nil)
         self.view.endEditing(true)
+        if isKeyboardShow == false{
+            self.dismiss(animated: true, completion: nil)
+        }else if isKeyboardHide == true{
+            self.dismiss(animated: true, completion: nil)
+        }
+        
     }
+    
     
     @IBAction func testGesture(_ sender: Any) {
         //self.dismiss(animated: true, completion: nil)
-        self.view.endEditing(true)
+        //self.view.endEditing(true)
         
+        //if isKeyboardShow == true {
+            //self.dismiss(animated: true, completion: nil)
+            self.view.endEditing(true)
+        //}
     }
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
+    }
+    
+    func keyboardWillShow(){
+        isKeyboardShow = true
+        print (isKeyboardShow)
+    }
+    
+    func keyboardWillHide(){
+        isKeyboardHide = true
+        print (isKeyboardHide)
     }
     
    /* let tapGesture = UITapGestureRecognizer(target: self, action: #selector(backtofirst(press:)))
