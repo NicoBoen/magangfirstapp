@@ -10,21 +10,26 @@ import UIKit
 
 class ViewController: UIViewController, UITextFieldDelegate {
 
-    @IBAction func mundurButton(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
+    
+    @IBOutlet weak var codeoneTextfield: UITextField!
+    @IBOutlet weak var codetwoTextfield: UITextField!
+    @IBOutlet weak var codethreeTextfield: UITextField!
+    @IBOutlet weak var ScrollView: UIScrollView!
+    @IBOutlet weak var addbookTextfield: UITextField!
+    @IBAction func plusButton(_ sender: Any) {
     }
     @IBAction func cancelButton(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
-    @IBOutlet weak var booktitleTextfield: UITextField!
-    @IBOutlet weak var codefirstTextfield: UITextField!
-    @IBOutlet weak var codesecondTextfield: UITextField!
-    @IBOutlet weak var codethirdTextfield: UITextField!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.booktitleTextfield.delegate = self
+        self.addbookTextfield.delegate = self
+        self.codeoneTextfield.delegate = self
+        self.codetwoTextfield.delegate = self
+        self.codethreeTextfield.delegate = self
     }
 
     override func didReceiveMemoryWarning() {
@@ -32,16 +37,49 @@ class ViewController: UIViewController, UITextFieldDelegate {
         // Dispose of any resources that can be recreated.
     }
     
+    
     //hide keybard when user touches outside keyboard
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    /*override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+        
+    }*/
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+    //let point = CGPoint(x: 0, y: 250)
+    
+        if UIDevice.current.orientation.isLandscape {
+            ScrollView.setContentOffset(CGPoint(x: 0, y: 150), animated: true)
+        }
+    
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        
+            ScrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
+    }
+    @IBAction func backtofront(_ sender: Any) {
+            //self.dismiss(animated: true, completion: nil)
         self.view.endEditing(true)
     }
     
-    //press return key
+    @IBAction func testGesture(_ sender: Any) {
+        //self.dismiss(animated: true, completion: nil)
+        self.view.endEditing(true)
+        
+    }
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
         return true
     }
     
+   /* let tapGesture = UITapGestureRecognizer(target: self, action: #selector(backtofirst(press:)))
+    
+    func backtofirst(press: UITapGestureRecognizer){
+        self.dismiss(animated: true, completion: nil)
+    }*/
+   
+    
+
 
     /*func keyboardShow(){
         UIView.animate(withDuration: 0.5, delay: 0,
