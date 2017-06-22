@@ -24,15 +24,19 @@ class ViewController: UIViewController, UITextFieldDelegate {
         self.dismiss(animated: true, completion: nil)
     }
 
+    //var ayam = String()
     @IBAction func saveButton(_ sender: Any) {
-        NotificationCenter.default.post(name: SAVE_NOTIFICATION, object: nil)
-        
+        //let dataToPass = ["data1": codeoneTextfield.text]
+        let dataToPass = ["data1": addbookTextfield.text, "data2": codeoneTextfield.text, "data3": codetwoTextfield.text, "data4": codethreeTextfield.text]
+        //NotificationCenter.default.post(name: SAVE_NOTIFICATION, object: nil)
+        NotificationCenter.default.post(name: SAVE_NOTIFICATION, object: nil, userInfo: dataToPass)
         
         
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         
         self.addbookTextfield.delegate = self
         self.codeoneTextfield.delegate = self
@@ -43,6 +47,14 @@ class ViewController: UIViewController, UITextFieldDelegate {
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
+    
+    /*override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let firstController = segue.destination as! FirstViewController
+        firstController.jdlbuku = addbookTextfield.text!
+        firstController.kodesatu = codeoneTextfield.text!
+        firstController.kodedua = codetwoTextfield.text!
+        firstController.kodetiga = codethreeTextfield.text!
+    }*/
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

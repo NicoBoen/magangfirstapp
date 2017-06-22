@@ -9,3 +9,4 @@
 import Foundation
 
 let SAVE_NOTIFICATION = NSNotification.Name("SaveNotification")
+let KIRIM_TEXT = NSNotification.Name("KirimText")
