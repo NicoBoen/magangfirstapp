@@ -65,11 +65,14 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
     @IBAction func backtofront(_ sender: Any) {
             //self.dismiss(animated: true, completion: nil)
-        self.view.endEditing(true)
+        //self.view.endEditing(true)
         if isKeyboardShow == false{
             self.dismiss(animated: true, completion: nil)
+            //self.view.endEditing(true)
         }else if isKeyboardHide == true{
             self.dismiss(animated: true, completion: nil)
+        }else if isKeyboardShow == true{
+            self.view.endEditing(true)
         }
         
     }
