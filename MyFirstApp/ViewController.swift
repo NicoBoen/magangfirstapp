@@ -24,6 +24,12 @@ class ViewController: UIViewController, UITextFieldDelegate {
         self.dismiss(animated: true, completion: nil)
     }
 
+    @IBAction func saveButton(_ sender: Any) {
+        NotificationCenter.default.post(name: SAVE_NOTIFICATION, object: nil)
+        
+        
+        
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

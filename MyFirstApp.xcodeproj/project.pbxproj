@@ -20,6 +20,7 @@
 		661AD2491EF7C33600DE3BBC /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 661AD2481EF7C33600DE3BBC /* FirstViewController.swift */; };
 		667800531EF8B4690059AF47 /* nature.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 667800521EF8B4690059AF47 /* nature.jpg */; };
 		667800591EF8DC910059AF47 /* RoundButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667800581EF8DC910059AF47 /* RoundButton.swift */; };
+		667FECE71EFB6F00006515AB /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667FECE61EFB6F00006515AB /* Constants.swift */; };
 		D1E6E798B69793EAAA13CE8C /* Pods_MyFirstAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DFC4A30D5666534B4C419CF /* Pods_MyFirstAppTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -62,6 +63,7 @@
 		661AD2481EF7C33600DE3BBC /* FirstViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
 		667800521EF8B4690059AF47 /* nature.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = nature.jpg; sourceTree = "<group>"; };
 		667800581EF8DC910059AF47 /* RoundButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundButton.swift; sourceTree = "<group>"; };
+		667FECE61EFB6F00006515AB /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		687A1269B351757022776569 /* Pods_MyFirstApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyFirstApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		752BCA46F14349F479548283 /* Pods-MyFirstApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyFirstApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-MyFirstApp/Pods-MyFirstApp.release.xcconfig"; sourceTree = "<group>"; };
 		9419AFEB0E6BA00088AB7566 /* Pods-MyFirstAppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyFirstAppUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MyFirstAppUITests/Pods-MyFirstAppUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -125,6 +127,7 @@
 				661AD2121EF7819300DE3BBC /* AppDelegate.swift */,
 				661AD2141EF7819300DE3BBC /* ViewController.swift */,
 				661AD2161EF7819300DE3BBC /* Main.storyboard */,
+				667FECE61EFB6F00006515AB /* Constants.swift */,
 				667800581EF8DC910059AF47 /* RoundButton.swift */,
 				661AD2481EF7C33600DE3BBC /* FirstViewController.swift */,
 				661AD2191EF7819300DE3BBC /* Assets.xcassets */,
@@ -460,6 +463,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				667FECE71EFB6F00006515AB /* Constants.swift in Sources */,
 				667800591EF8DC910059AF47 /* RoundButton.swift in Sources */,
 				661AD2491EF7C33600DE3BBC /* FirstViewController.swift in Sources */,
 				661AD2151EF7819300DE3BBC /* ViewController.swift in Sources */,

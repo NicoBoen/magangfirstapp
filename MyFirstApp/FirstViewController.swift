@@ -14,6 +14,11 @@ class FirstViewController: UIViewController {
     @IBAction func helloButton(_ sender: Any) {
         performSegue(withIdentifier: "helloSegue", sender: nil)
     }
+    @IBOutlet weak var judulbukuLabel: UILabel!
+    @IBOutlet weak var kodekamuLabel: UILabel!
+    @IBOutlet weak var kodesatuLabel: UILabel!
+    @IBOutlet weak var kodeduaLabel: UILabel!
+    @IBOutlet weak var kodetigaLabel: UILabel!
     
     
     
@@ -22,7 +27,20 @@ class FirstViewController: UIViewController {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
+        NotificationCenter.default.addObserver(forName: SAVE_NOTIFICATION, object: nil, queue: nil){notification in
+                print("notification is \(notification)")
+            
+            self.judulbukuLabel.isHidden = false
+            self.kodekamuLabel.isHidden = false
+            self.kodesatuLabel.isHidden = false
+            self.kodeduaLabel.isHidden = false
+            self.kodetigaLabel.isHidden = false
+        }
     }
+    
+    /*deinit {
+        NotificationCenter.default.removeObserver(self)
+    }*/
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
