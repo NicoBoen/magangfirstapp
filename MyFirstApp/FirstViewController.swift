@@ -21,48 +21,36 @@ class FirstViewController: UIViewController {
     @IBOutlet weak var kodetigaLabel: UILabel!
     
     
-    //var jdlbuku = String()
-    //var kodesatu = String()
-    //var kodedua = String()
-    //var kodetiga = String()
-    //var kodebuku = String()
-    
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Do any additional setup after loading the view.
-       /*NotificationCenter.default.addObserver(forName: SAVE_NOTIFICATION, object: nil, queue: nil){notification in
-                print("notification is \(notification)")
-            //notification.userInfo
-            self.judulbukuLabel.isHidden = false
-            self.kodekamuLabel.isHidden = false
-            self.kodesatuLabel.isHidden = false
-            self.kodeduaLabel.isHidden = false
-            self.kodetigaLabel.isHidden = false
-        }*/
         
-        NotificationCenter.default.addObserver(self, selector: #selector(retrieveNotif), name: SAVE_NOTIFICATION, object: nil)
-        
-        /*judulbukuLabel.text = jdlbuku
-        kodesatuLabel.text = kodesatu
-        kodeduaLabel.text = kodedua
-        kodetigaLabel.text = kodetiga
-        //kodekamuLabel.text = kodebuku*/
+        //Ini yang coding bagian NSNotificationCenter
+        /*NotificationCenter.default.addObserver(self, selector: #selector(retrieveNotif), name: SAVE_NOTIFICATION, object: nil)*/
 
     }
     
-    /*deinit {
-        NotificationCenter.default.removeObserver(self)
-    }*/
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    
+    //ini kita memakai protocol
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "helloSegue"{
+            let vc: ViewController = segue.destination as! ViewController
+            vc.delegate = self
+        }
+        
     }
     
-    func retrieveNotif(_ notif: Notification){
+    
+    
+    
+    
+    
+   
+    //Ini yang coding bagian NSNotificationCenter
+    /* func retrieveNotif(_ notif: Notification){
         if (notif.userInfo?["data1"] as? String) != nil{
             //notif.userInfo?["data1"] = judulbukuLabel.text
             judulbukuLabel.text = notif.userInfo?["data1"] as! String
@@ -82,16 +70,17 @@ class FirstViewController: UIViewController {
         }
         self.kodekamuLabel.isHidden = false
         
-    }
+    }*/
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
+
+extension FirstViewController: DataSentDelegate{
+    func banteng(data: String, datasatu: String, datadua: String, datatiga: String) {
+        judulbukuLabel.text = data
+        kodesatuLabel.text = datasatu
+        kodeduaLabel.text = datadua
+        kodetigaLabel.text = datatiga
+    }
+}
+

@@ -8,7 +8,13 @@
 
 import UIKit
 
+protocol DataSentDelegate {
+    func banteng(data: String, datasatu: String, datadua: String, datatiga: String)
+}
+
 class ViewController: UIViewController, UITextFieldDelegate {
+    
+    var delegate: DataSentDelegate?
 
     
     @IBOutlet weak var codeoneTextfield: UITextField!
@@ -16,21 +22,33 @@ class ViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var codethreeTextfield: UITextField!
     @IBOutlet weak var ScrollView: UIScrollView!
     @IBOutlet weak var addbookTextfield: UITextField!
-    var isKeyboardShow = false
-    var isKeyboardHide = false
+    var isKeyboardShow = true
+    var isKeyboardHide = true
     @IBAction func plusButton(_ sender: Any) {
     }
     @IBAction func cancelButton(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
 
-    //var ayam = String()
     @IBAction func saveButton(_ sender: Any) {
-        //let dataToPass = ["data1": codeoneTextfield.text]
-        let dataToPass = ["data1": addbookTextfield.text, "data2": codeoneTextfield.text, "data3": codetwoTextfield.text, "data4": codethreeTextfield.text]
-        //NotificationCenter.default.post(name: SAVE_NOTIFICATION, object: nil)
-        NotificationCenter.default.post(name: SAVE_NOTIFICATION, object: nil, userInfo: dataToPass)
         
+        
+        //ini yang coding bagian NSNotificationCenter
+        /*let dataToPass = ["data1": addbookTextfield.text, "data2": codeoneTextfield.text, "data3": codetwoTextfield.text, "data4": codethreeTextfield.text]
+        //NotificationCenter.default.post(name: SAVE_NOTIFICATION, object: nil)
+        NotificationCenter.default.post(name: SAVE_NOTIFICATION, object: nil, userInfo: dataToPass)*/
+        
+        
+        //ini kita memakai protocol
+        if delegate != nil{
+                let data1 = addbookTextfield.text
+                let data2 = codeoneTextfield.text
+                let data3 = codetwoTextfield.text
+                let data4 = codethreeTextfield.text
+                delegate?.banteng(data: data1!, datasatu: data2!, datadua: data3!, datatiga: data4!)
+                dismiss(animated: true, completion: nil)
+            
+        }
         
     }
     
@@ -38,23 +56,17 @@ class ViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         
         
-        self.addbookTextfield.delegate = self
+        //Ini yang coding bagian NSNotificationCenter
+        /*self.addbookTextfield.delegate = self
         self.codeoneTextfield.delegate = self
         self.codetwoTextfield.delegate = self
         self.codethreeTextfield.delegate = self
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)*/
     }
     
-    /*override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let firstController = segue.destination as! FirstViewController
-        firstController.jdlbuku = addbookTextfield.text!
-        firstController.kodesatu = codeoneTextfield.text!
-        firstController.kodedua = codetwoTextfield.text!
-        firstController.kodetiga = codethreeTextfield.text!
-    }*/
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -62,11 +74,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
     
     
-    //hide keybard when user touches outside keyboard
-    /*override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.view.endEditing(true)
-        
-    }*/
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
     //let point = CGPoint(x: 0, y: 250)
@@ -82,28 +89,25 @@ class ViewController: UIViewController, UITextFieldDelegate {
             ScrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
     }
     @IBAction func backtofront(_ sender: Any) {
+        //dismiss(animated: true, completion: nil)
+        if isKeyboardShow == true{
             //self.dismiss(animated: true, completion: nil)
-        //self.view.endEditing(true)
-        if isKeyboardShow == false{
-            self.dismiss(animated: true, completion: nil)
-            //self.view.endEditing(true)
-        }else if isKeyboardHide == true{
-            self.dismiss(animated: true, completion: nil)
-        }else if isKeyboardShow == true{
             self.view.endEditing(true)
+            
+        }
+            //self.dismiss(animated: true, completion: nil)
+        else if isKeyboardHide == true{
+            //self.view.endEditing(true)
+            dismiss(animated: true, completion: nil)
+        //else if isKeyboardShow == false{
+//            dismiss(animated: true, completion: nil)
         }
         
     }
     
     
     @IBAction func testGesture(_ sender: Any) {
-        //self.dismiss(animated: true, completion: nil)
-        //self.view.endEditing(true)
-        
-        //if isKeyboardShow == true {
-            //self.dismiss(animated: true, completion: nil)
             self.view.endEditing(true)
-        //}
     }
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
@@ -114,31 +118,13 @@ class ViewController: UIViewController, UITextFieldDelegate {
         isKeyboardShow = true
         print (isKeyboardShow)
     }
-    
-    func keyboardWillHide(){
-        isKeyboardHide = true
-        print (isKeyboardHide)
-    }
-    
-   /* let tapGesture = UITapGestureRecognizer(target: self, action: #selector(backtofirst(press:)))
-    
-    func backtofirst(press: UITapGestureRecognizer){
-        self.dismiss(animated: true, completion: nil)
-    }*/
-   
-    
+//    
+//    func keyboardWillHide(){
+//        isKeyboardHide = true
+//        print (isKeyboardHide)
+//    }
 
-
-    /*func keyboardShow(){
-        UIView.animate(withDuration: 0.5, delay: 0,
-                       usingSpringWithDamping: 1, initialSpringVelocity: 1,
-                       options: .curveEaseOut, animations:{
-                        
-                        let _: CGFloat = UIDevice.current.orientation.isLandscape ? -200 : -100
-                        self.view.frame = CGRect(x: 0, y: -50, width: self.view.frame.width, height: self.view.frame.height)
-        }, completion: nil)
-        
-    }*/
+    
     
 }
 
