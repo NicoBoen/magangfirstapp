@@ -194,6 +194,7 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                         <connections>
+                                            <action selector="codeOneChanged:" destination="BYZ-38-t0r" eventType="editingChanged" id="KNd-33-HQM"/>
                                             <outlet property="delegate" destination="BYZ-38-t0r" id="5Te-E1-9Vg"/>
                                         </connections>
                                     </textField>
@@ -207,6 +208,7 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                         <connections>
+                                            <action selector="codeThreeChanged:" destination="BYZ-38-t0r" eventType="editingChanged" id="3FP-Ow-bt0"/>
                                             <outlet property="delegate" destination="BYZ-38-t0r" id="Lcy-dN-gJJ"/>
                                         </connections>
                                     </textField>
@@ -273,6 +275,7 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                         <connections>
+                                            <action selector="codeTwoChanged:" destination="BYZ-38-t0r" eventType="editingChanged" id="fkE-Nb-asE"/>
                                             <outlet property="delegate" destination="BYZ-38-t0r" id="nQv-qr-9FC"/>
                                         </connections>
                                     </textField>

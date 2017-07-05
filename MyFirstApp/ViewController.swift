@@ -18,6 +18,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
     var txtField: UITextField?
 
     
+    @IBOutlet var smallGesture: UITapGestureRecognizer!
+    @IBOutlet var bigGesture: UITapGestureRecognizer!
     @IBOutlet weak var codeoneTextfield: UITextField!
     @IBOutlet weak var codetwoTextfield: UITextField!
     @IBOutlet weak var codethreeTextfield: UITextField!
@@ -66,12 +68,31 @@ class ViewController: UIViewController, UITextFieldDelegate {
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)*/
         
+        //CARA NICO
+//        codeoneTextfield.addTarget(self, action: "textFieldDidChange", for: UIControlEvents.editingChanged)
+//        codetwoTextfield.addTarget(self, action: "textFieldDidChange", for: UIControlEvents.editingChanged)
+//        codethreeTextfield.addTarget(self, action: "textFieldDidChange", for: UIControlEvents.editingChanged)
         
        
         
     }
+    //CARA NICO
+//    
+//    func textFieldDidChange(textField: UITextField){
+//        let text = textField.text
+//        
+//        if text?.utf16.count == 1{
+//            switch textField {
+//            case codeoneTextfield:
+//                codetwoTextfield.becomeFirstResponder()
+//            case codetwoTextfield:
+//                codethreeTextfield.becomeFirstResponder()
+//            default:
+//                break
+//            }
+//        }
+//    }
     
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -79,29 +100,42 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange , replacementString string: String) -> Bool {
         let newLength = (textField.text?.characters.count)! + string.characters.count - range.length
-        //textField.tag = 2
-//
-            //textField.tag += 1
-            
+        
+        
 //            if range.length + range.location  > (textField.text?.characters.count)! {
 //                
 //                textField.tag += 2
 //                return false
 //            }
                 //let newLength = (codeoneTextfield.text?.characters.count)! + string.characters.count - range.length
+        
                 
                 return newLength <= 5
         
         
     }
     
+    //CARA GHANI
+//    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+//        if textField == textField.viewWithTag(1) {
+//            textField.resignFirstResponder()
+//            textField.viewWithTag(2)?.becomeFirstResponder()
+//        }else if textField == textField.viewWithTag(2){
+//            textField.resignFirstResponder()
+//            textField.viewWithTag(3)?.becomeFirstResponder()
+//        }else if textField == textField.viewWithTag(3){
+//            textField.resignFirstResponder()
+//        }
+//        return true
+//    }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
     //let point = CGPoint(x: 0, y: 250)
         
-    
         if UIDevice.current.orientation.isLandscape {
-            ScrollView.setContentOffset(CGPoint(x: 0, y: 150), animated: true)
+            if codethreeTextfield.isEditing || codeoneTextfield.isEditing || codetwoTextfield.isEditing{
+                ScrollView.setContentOffset(CGPoint(x: 0, y: 90), animated: true)
+            }
         }
     
     }
@@ -112,13 +146,12 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
     @IBAction func backtofront(_ sender: Any) {
             if isKeyboardShow == true{
-            self.view.endEditing(true)
+            self.ScrollView.endEditing(true)
                     isKeyboardShow = false
             }
             //isKeyboardShow = false
-            else {
-            self.dismiss(animated: true, completion: nil)
-              }
+            else if isKeyboardShow == false{
+                self.dismiss(animated: true, completion: nil)            }
         
     }
     
@@ -126,10 +159,10 @@ class ViewController: UIViewController, UITextFieldDelegate {
     @IBAction func testGesture(_ sender: Any) {
             self.view.endEditing(true)
     }
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
-    }
+//    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+//        textField.resignFirstResponder()
+//        return true
+//    }
     
 //    func keyboardWillShow(){
 //        isKeyboardShow = true
@@ -137,8 +170,45 @@ class ViewController: UIViewController, UITextFieldDelegate {
 //    }
 
     
+ 
+    @IBAction func codeOneChanged(_ sender: Any) {
+        let codeOneCount = codeoneTextfield.text!.characters.count
+        
+        if codeOneCount == 5 {
+            codeoneTextfield.resignFirstResponder()
+            codetwoTextfield.becomeFirstResponder()
+        }
+    }
+    
+    @IBAction func codeTwoChanged(_ sender: Any) {
+        let codeTwoCount = codetwoTextfield.text!.characters.count
+        
+        if codeTwoCount == 5 {
+            codetwoTextfield.resignFirstResponder()
+            codethreeTextfield.becomeFirstResponder()
+        }
+    }
+    
+    
+    @IBAction func codeThreeChanged(_ sender: Any) {
+        let codeThreeCount = codethreeTextfield.text!.characters.count
+        
+        if codeThreeCount == 5 {
+                codethreeTextfield.resignFirstResponder()
+                
+//                let alert = UIAlertController(title: "info", message: "\nAll code already typed", preferredStyle: .alert)
+//                alert.addAction(UIAlertAction(title: "Mantab", style: .default, handler: nil))
+//                present(alert, animated: true, completion: nil)
+        }
+    }
     
 }
+
+    
+    
+    
+    
+
 
 
 
