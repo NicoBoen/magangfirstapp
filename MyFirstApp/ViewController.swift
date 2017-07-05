@@ -15,6 +15,7 @@ protocol DataSentDelegate {
 class ViewController: UIViewController, UITextFieldDelegate {
     
     var delegate: DataSentDelegate?
+    var txtField: UITextField?
 
     
     @IBOutlet weak var codeoneTextfield: UITextField!
@@ -35,7 +36,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
         
         //ini yang coding bagian NSNotificationCenter
         /*let dataToPass = ["data1": addbookTextfield.text, "data2": codeoneTextfield.text, "data3": codetwoTextfield.text, "data4": codethreeTextfield.text]
-        //NotificationCenter.default.post(name: SAVE_NOTIFICATION, object: nil)
         NotificationCenter.default.post(name: SAVE_NOTIFICATION, object: nil, userInfo: dataToPass)*/
         
         
@@ -65,6 +65,10 @@ class ViewController: UIViewController, UITextFieldDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)*/
+        
+        
+       
+        
     }
     
 
@@ -73,10 +77,28 @@ class ViewController: UIViewController, UITextFieldDelegate {
         // Dispose of any resources that can be recreated.
     }
     
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange , replacementString string: String) -> Bool {
+        let newLength = (textField.text?.characters.count)! + string.characters.count - range.length
+        //textField.tag = 2
+//
+            //textField.tag += 1
+            
+//            if range.length + range.location  > (textField.text?.characters.count)! {
+//                
+//                textField.tag += 2
+//                return false
+//            }
+                //let newLength = (codeoneTextfield.text?.characters.count)! + string.characters.count - range.length
+                
+                return newLength <= 5
+        
+        
+    }
     
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
     //let point = CGPoint(x: 0, y: 250)
+        
     
         if UIDevice.current.orientation.isLandscape {
             ScrollView.setContentOffset(CGPoint(x: 0, y: 150), animated: true)
@@ -89,19 +111,14 @@ class ViewController: UIViewController, UITextFieldDelegate {
             ScrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
     }
     @IBAction func backtofront(_ sender: Any) {
-        //dismiss(animated: true, completion: nil)
-        if isKeyboardShow == true{
-            //self.dismiss(animated: true, completion: nil)
+            if isKeyboardShow == true{
             self.view.endEditing(true)
-            
-        }
-            //self.dismiss(animated: true, completion: nil)
-        else if isKeyboardHide == true{
-            //self.view.endEditing(true)
-            dismiss(animated: true, completion: nil)
-        //else if isKeyboardShow == false{
-//            dismiss(animated: true, completion: nil)
-        }
+                    isKeyboardShow = false
+            }
+            //isKeyboardShow = false
+            else {
+            self.dismiss(animated: true, completion: nil)
+              }
         
     }
     
@@ -114,19 +131,15 @@ class ViewController: UIViewController, UITextFieldDelegate {
         return true
     }
     
-    func keyboardWillShow(){
-        isKeyboardShow = true
-        print (isKeyboardShow)
-    }
-//    
-//    func keyboardWillHide(){
-//        isKeyboardHide = true
-//        print (isKeyboardHide)
+//    func keyboardWillShow(){
+//        isKeyboardShow = true
+//        print (isKeyboardShow)
 //    }
 
     
     
 }
+
 
 
 class Draw2D: UIView{
