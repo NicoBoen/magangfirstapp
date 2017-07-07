@@ -26,11 +26,21 @@ class FirstViewController: UIViewController {
         super.viewDidLoad()
         
         
+        //getSizeScreen()
+        
         //Ini yang coding bagian NSNotificationCenter
         /*NotificationCenter.default.addObserver(self, selector: #selector(retrieveNotif), name: SAVE_NOTIFICATION, object: nil)*/
 
     }
     
+//    func getSizeScreen(){
+//        let screenSize : CGRect = UIScreen.main.bounds
+//        let screenWidth = screenSize.width
+//        let screenHeight = screenSize.height
+//        
+//        print("lebar layar : ", screenWidth,"\n")
+//        print("tinggi layar: ", screenHeight)
+//    }
 
     
     

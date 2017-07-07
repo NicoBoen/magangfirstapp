@@ -2,11 +2,11 @@
 # platform :ios, ’9.0’
 
 target 'MyFirstApp' do
-	pod ‘LiquidFloatingActionButton’, :git => ‘https://github.com/yoavlt/LiquidFloatingActionButton’, :branch => ‘swift-3.0’
+    #	pod ‘LiquidFloatingActionButton’, :git => ‘https://github.com/yoavlt/LiquidFloatingActionButton’, :branch => ‘swift-3.0’
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
   use_frameworks!
 
-  # Pods for MyFirstApp
+  pod 'IQKeyboardManagerSwift'
 
   target 'MyFirstAppTests' do
     inherit! :search_paths

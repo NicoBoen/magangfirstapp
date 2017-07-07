@@ -176,7 +176,10 @@
                                         <rect key="frame" x="42" y="128" width="285" height="30"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" returnKeyType="next"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="BYZ-38-t0r" id="Eox-mB-3uO"/>
+                                        </connections>
                                     </textField>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="INPUT YOUR BOOK CODE HERE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0wW-ww-T7l">
                                         <rect key="frame" x="0.0" y="181" width="369" height="21"/>
@@ -192,7 +195,7 @@
                                         </constraints>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" returnKeyType="next"/>
                                         <connections>
                                             <action selector="codeOneChanged:" destination="BYZ-38-t0r" eventType="editingChanged" id="KNd-33-HQM"/>
                                             <outlet property="delegate" destination="BYZ-38-t0r" id="5Te-E1-9Vg"/>
@@ -273,7 +276,7 @@
                                         </constraints>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" returnKeyType="next"/>
                                         <connections>
                                             <action selector="codeTwoChanged:" destination="BYZ-38-t0r" eventType="editingChanged" id="fkE-Nb-asE"/>
                                             <outlet property="delegate" destination="BYZ-38-t0r" id="nQv-qr-9FC"/>

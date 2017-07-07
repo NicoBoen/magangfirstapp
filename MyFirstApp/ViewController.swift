@@ -7,6 +7,7 @@
 //
 
 import UIKit
+//import PCLBlurEffectAlert
 
 protocol DataSentDelegate {
     func banteng(data: String, datasatu: String, datadua: String, datatiga: String)
@@ -31,6 +32,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
     @IBAction func cancelButton(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
+        //getSizeScreen()
+        
     }
 
     @IBAction func saveButton(_ sender: Any) {
@@ -54,8 +57,24 @@ class ViewController: UIViewController, UITextFieldDelegate {
         
     }
     
+    var tempHeight:Int = 0
+    var tempWidth:Int = 0
+    func getSizeScreen(){
+        let screen: CGRect = UIScreen.main.bounds
+        let screenWidth = screen.width
+        tempWidth = Int(screenWidth)
+        let screenHeight = screen.height
+        tempHeight = Int(screenHeight)
+        
+       // print("lebar: ", screenWidth)
+       // print("tinggi: ", screenHeight)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        ScrollView.setContentOffset(CGPoint(x: 0, y:0), animated: true)
+        self.view.endEditing(true)
+        self.ScrollView.contentSize.height = 0
         
         
         //Ini yang coding bagian NSNotificationCenter
@@ -68,84 +87,55 @@ class ViewController: UIViewController, UITextFieldDelegate {
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)*/
         
-        //CARA NICO
-//        codeoneTextfield.addTarget(self, action: "textFieldDidChange", for: UIControlEvents.editingChanged)
-//        codetwoTextfield.addTarget(self, action: "textFieldDidChange", for: UIControlEvents.editingChanged)
-//        codethreeTextfield.addTarget(self, action: "textFieldDidChange", for: UIControlEvents.editingChanged)
-        
        
         
     }
-    //CARA NICO
-//    
-//    func textFieldDidChange(textField: UITextField){
-//        let text = textField.text
-//        
-//        if text?.utf16.count == 1{
-//            switch textField {
-//            case codeoneTextfield:
-//                codetwoTextfield.becomeFirstResponder()
-//            case codetwoTextfield:
-//                codethreeTextfield.becomeFirstResponder()
-//            default:
-//                break
-//            }
-//        }
-//    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange , replacementString string: String) -> Bool {
-        let newLength = (textField.text?.characters.count)! + string.characters.count - range.length
-        
-        
-//            if range.length + range.location  > (textField.text?.characters.count)! {
+//    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange , replacementString string: String) -> Bool {
+//        let newLength = (textField.text?.characters.count)! + string.characters.count - range.length
 //                
-//                textField.tag += 2
-//                return false
-//            }
-                //let newLength = (codeoneTextfield.text?.characters.count)! + string.characters.count - range.length
-        
-                
-                return newLength <= 5
-        
-        
-    }
-    
-    //CARA GHANI
-//    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-//        if textField == textField.viewWithTag(1) {
-//            textField.resignFirstResponder()
-//            textField.viewWithTag(2)?.becomeFirstResponder()
-//        }else if textField == textField.viewWithTag(2){
-//            textField.resignFirstResponder()
-//            textField.viewWithTag(3)?.becomeFirstResponder()
-//        }else if textField == textField.viewWithTag(3){
-//            textField.resignFirstResponder()
-//        }
-//        return true
+//                return newLength <= 5
+//        
+//        
 //    }
+    
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
     //let point = CGPoint(x: 0, y: 250)
+        getSizeScreen()
         
-        if UIDevice.current.orientation.isLandscape {
-            if codethreeTextfield.isEditing || codeoneTextfield.isEditing || codetwoTextfield.isEditing{
-                ScrollView.setContentOffset(CGPoint(x: 0, y: 90), animated: true)
+        if tempWidth == 1366 && tempHeight == 1024{
+            //if UIDevice.current.orientation.isLandscape {
+                if codethreeTextfield.isEditing || codeoneTextfield.isEditing || codetwoTextfield.isEditing{
+                    ScrollView.setContentOffset(CGPoint(x: 0, y: 50), animated: true)
+                    //self.ScrollView.contentSize.height = 0
+                }else if addbookTextfield.isEditing{
+                    self.ScrollView.contentSize.height = 600
+                }else{
+                    //self.ScrollView.contentSize.height = 600
             }
+            
+            //}
+
         }
-    
+        
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         
-            ScrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
+        ScrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
+        self.ScrollView.contentSize.height = 0
     }
     @IBAction func backtofront(_ sender: Any) {
             if isKeyboardShow == true{
+                ScrollView.setContentOffset(CGPoint(x: 0, y:0), animated: true)
+                self.view.endEditing(true)
+                self.ScrollView.contentSize.height = 0
             self.ScrollView.endEditing(true)
                     isKeyboardShow = false
             }
@@ -157,12 +147,24 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     
     @IBAction func testGesture(_ sender: Any) {
-            self.view.endEditing(true)
+        ScrollView.setContentOffset(CGPoint(x: 0, y:0), animated: true)
+        self.view.endEditing(true)
+        self.ScrollView.contentSize.height = 0
     }
-//    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-//        textField.resignFirstResponder()
-//        return true
-//    }
+    func textFieldShouldReturn( _ textField: UITextField) -> Bool {
+        if textField == addbookTextfield{
+            codeoneTextfield.becomeFirstResponder()
+            //codetwoTextfield.becomeFirstResponder()
+        }else if textField == codeoneTextfield{
+            codetwoTextfield.becomeFirstResponder()
+        }else if textField == codetwoTextfield{
+            codethreeTextfield.becomeFirstResponder()
+        }else{
+            codethreeTextfield.resignFirstResponder()
+        }
+        
+        return true
+    }
     
 //    func keyboardWillShow(){
 //        isKeyboardShow = true
@@ -172,11 +174,15 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
  
     @IBAction func codeOneChanged(_ sender: Any) {
-        let codeOneCount = codeoneTextfield.text!.characters.count
         
+        let codeOneCount = codeoneTextfield.text!.characters.count
+//        ScrollView.setContentOffset(CGPoint(x: 0, y:0), animated: true)
+//        self.view.endEditing(true)
+//        self.ScrollView.contentSize.height = 0
         if codeOneCount == 5 {
             codeoneTextfield.resignFirstResponder()
             codetwoTextfield.becomeFirstResponder()
+            
         }
     }
     
@@ -196,9 +202,15 @@ class ViewController: UIViewController, UITextFieldDelegate {
         if codeThreeCount == 5 {
                 codethreeTextfield.resignFirstResponder()
                 
-//                let alert = UIAlertController(title: "info", message: "\nAll code already typed", preferredStyle: .alert)
-//                alert.addAction(UIAlertAction(title: "Mantab", style: .default, handler: nil))
-//                present(alert, animated: true, completion: nil)
+                let alert = UIAlertController(title: "Info", message: "\nYour codes are\n\(codeoneTextfield.text!) \(codetwoTextfield.text!) \(codethreeTextfield.text!)", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+
+            //let alert = PCLBlurEffectAlert.Controller(title: "hahahaha...", message: "testing bro...", effect: UIBlurEffect(style: .dark), style: .alert)
+            //let haha = alert.PCLBlurEffectAlert.AlertAction(title: "cancel", style: .cancel, handler: nil)
+            //alert.addAction(haha)
+            present(alert, animated: true, completion: nil)
+            //alert.show()
+        
         }
     }
     
