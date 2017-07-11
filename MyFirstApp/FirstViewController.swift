@@ -19,28 +19,20 @@ class FirstViewController: UIViewController {
     @IBOutlet weak var kodesatuLabel: UILabel!
     @IBOutlet weak var kodeduaLabel: UILabel!
     @IBOutlet weak var kodetigaLabel: UILabel!
+    @IBAction func showButton(_ sender: Any) {
+        performSegue(withIdentifier: "secondSegue", sender: nil)
+    }
     
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        //getSizeScreen()
-        
         //Ini yang coding bagian NSNotificationCenter
         /*NotificationCenter.default.addObserver(self, selector: #selector(retrieveNotif), name: SAVE_NOTIFICATION, object: nil)*/
 
     }
     
-//    func getSizeScreen(){
-//        let screenSize : CGRect = UIScreen.main.bounds
-//        let screenWidth = screenSize.width
-//        let screenHeight = screenSize.height
-//        
-//        print("lebar layar : ", screenWidth,"\n")
-//        print("tinggi layar: ", screenHeight)
-//    }
 
     
     

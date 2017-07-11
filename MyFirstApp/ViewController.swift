@@ -7,11 +7,22 @@
 //
 
 import UIKit
+import CoreData
 //import PCLBlurEffectAlert
 
 protocol DataSentDelegate {
     func banteng(data: String, datasatu: String, datadua: String, datatiga: String)
 }
+
+//class nico: NSEntityDescription{
+//    
+//    let boen = NSEntityDescription.insertNewObject(forEntityName: "Users", into: NSManagedObject) as! rico
+//
+//}
+//
+//class rico: NSManagedObject{
+//    
+//}
 
 class ViewController: UIViewController, UITextFieldDelegate {
     
@@ -28,6 +39,11 @@ class ViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var addbookTextfield: UITextField!
     var isKeyboardShow = true
     var isKeyboardHide = true
+    var tempHeight:Int = 0
+    var tempWidth:Int = 0
+    //var temporary: [String] = []
+    //var names: [String] = []
+    
     @IBAction func plusButton(_ sender: Any) {
     }
     @IBAction func cancelButton(_ sender: Any) {
@@ -43,6 +59,73 @@ class ViewController: UIViewController, UITextFieldDelegate {
         /*let dataToPass = ["data1": addbookTextfield.text, "data2": codeoneTextfield.text, "data3": codetwoTextfield.text, "data4": codethreeTextfield.text]
         NotificationCenter.default.post(name: SAVE_NOTIFICATION, object: nil, userInfo: dataToPass)*/
         
+        var titleArr: [String] = []
+        var codeoneArr: [String] = []
+        var codetwoArr: [String] = []
+        var codethreeArr: [String] = []
+        
+        
+        
+        //Storing Core Data
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        
+        if addbookTextfield.text != "" || codeoneTextfield.text != "" || codetwoTextfield.text != "" || codethreeTextfield.text != "" {
+            let newUser = NSEntityDescription.insertNewObject(forEntityName: "Users", into: context)
+            
+            newUser.setValue(addbookTextfield.text, forKey: "title")
+            newUser.setValue(codeoneTextfield.text, forKey: "codeone")
+            newUser.setValue(codetwoTextfield.text, forKey: "codetwo")
+            newUser.setValue(codethreeTextfield.text, forKey: "codethree")
+            
+            //temporary = [judul, codesatu, codedua, codetiga]
+            
+            do{
+                try context.save()
+                print("SAVED")
+            }
+            catch{
+                
+            }
+        }
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Users")
+        request.returnsObjectsAsFaults = false
+        
+        do{
+            let results = try context.fetch(request)
+            if results.count > 0{
+                for result in results as! [NSManagedObject]{
+                    if let title = result.value(forKey: "title") as? String{
+                        titleArr.append(title)
+                        //print("Book title: ", title)
+                    }
+                    if let codeone = result.value(forKey: "codeone") as? String{
+                        codeoneArr.append(codeone)
+                        //print("Code one: ", codeone)
+                    }
+                    if let codetwo = result.value(forKey: "codetwo") as? String{
+                        codetwoArr.append(codetwo)
+                        //print("Code two: ", codetwo)
+                    }
+                    if let codethree = result.value(forKey: "codethree") as? String{
+                        codethreeArr.append(codethree)
+                        //print("Code three: ", codethree)
+                    }
+                }
+                print(titleArr)
+                print(codeoneArr)
+                print(codetwoArr)
+                print(codethreeArr)
+            }
+        }
+        catch{
+        
+        }
+        
+        
+        
+        
+        
         
         //ini kita memakai protocol
         if delegate != nil{
@@ -57,8 +140,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         
     }
     
-    var tempHeight:Int = 0
-    var tempWidth:Int = 0
+    
     func getSizeScreen(){
         let screen: CGRect = UIScreen.main.bounds
         let screenWidth = screen.width
@@ -72,6 +154,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
         ScrollView.setContentOffset(CGPoint(x: 0, y:0), animated: true)
         self.view.endEditing(true)
         self.ScrollView.contentSize.height = 0
@@ -95,14 +179,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-//    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange , replacementString string: String) -> Bool {
-//        let newLength = (textField.text?.characters.count)! + string.characters.count - range.length
-//                
-//                return newLength <= 5
-//        
-//        
-//    }
     
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
@@ -166,10 +242,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
         return true
     }
     
-//    func keyboardWillShow(){
-//        isKeyboardShow = true
-//        print (isKeyboardShow)
-//    }
 
     
  
